@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">QuizBox</string>
+    <string name="app_name">Quiz  Box</string>
+    <string name="app_start_btn">Start</string>
+    <string name="category_heading">Categories</string>
+    <string name="islamic_category">Islamic</string>
+    <string name="history_category">History</string>
+    <string name="science_category">Science</string>
+
 </resources>
