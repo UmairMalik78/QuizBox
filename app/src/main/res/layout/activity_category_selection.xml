@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:srcCompat="@drawable/category_item_box" />
+        app:srcCompat="@drawable/category_item_box"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -25,14 +26,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/category_item_box" />
+        app:srcCompat="@drawable/category_item_box"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/historyCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/blackberry"
-        android:onClick="MoveToQuizActivity"
+        android:onClick="MoveToQuizActivityScience"
         android:text="@string/science_category"
         android:textColor="#FDEBF3EC"
         android:textSize="35sp"
@@ -49,7 +51,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        app:srcCompat="@drawable/category_item_box" />
+        app:srcCompat="@drawable/category_item_box"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/IslamicCategory"
@@ -59,7 +62,7 @@
         android:text="@string/islamic_category"
         android:textColor="#FDEBF3EC"
         android:textSize="40sp"
-        android:onClick="MoveToQuizActivity"
+        android:onClick="MoveToQuizActivityIslamic"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +80,7 @@
         android:fontFamily="@font/blackberry"
         android:text="@string/history_category"
         android:textColor="#FDEBF3EC"
-        android:onClick="MoveToQuizActivity"
+        android:onClick="MoveToQuizActivityHistory"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView7"
