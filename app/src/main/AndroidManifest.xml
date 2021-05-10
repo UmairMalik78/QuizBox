@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizBox">
-        <activity android:name=".ScienceLevelsActivity"></activity>
+        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ScienceLevelsActivity" />
         <activity android:name=".HistoryLevelsActivity" />
+        <activity android:name=".QuizActivity" />
         <activity android:name=".IslamicLevelsActivity" />
         <activity android:name=".CategorySelectionActivity" />
         <activity android:name=".MainActivity">

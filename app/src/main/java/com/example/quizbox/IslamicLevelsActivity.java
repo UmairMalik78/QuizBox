@@ -2,7 +2,9 @@ package com.example.quizbox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,7 +19,11 @@ public class IslamicLevelsActivity extends AppCompatActivity {
     }
     public void StartQuizLevel1(View view) {
         //Code according to your logic
-        flag=1;
+        Log.e("ALC","moving");
+        Intent intent=new Intent(this,QuizActivity.class);
+        intent.putExtra("category","islamic");
+        intent.putExtra("level","1");
+        startActivity(intent);
     }
     public void StartQuizLevel2(View view) {
         if(flag==1)

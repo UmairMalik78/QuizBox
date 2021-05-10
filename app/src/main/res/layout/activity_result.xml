@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_primary_dark">
+
+    <TextView
+        android:id="@+id/txtResultStatus"
+        android:layout_width="259dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/custom_textview"
+        android:fontFamily="@font/blackberry"
+        android:text="Status"
+        android:textColor="#9B5FEB"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <TextView
+        android:id="@+id/txtCorrectAnsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/kidsboardgame"
+        android:text="count"
+        android:textColor="#098E3E"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtResultStatus"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="@+id/txtResultStatus"
+        app:layout_constraintTop_toBottomOf="@+id/txtResultStatus" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:fontFamily="@font/dream"
+        android:onClick="GoToMainActivity"
+        android:text="Home"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorrectAnsCount" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:theme="@style/RatingBar"
+        android:layout_width="245dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="56dp"
+        android:isIndicator="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
