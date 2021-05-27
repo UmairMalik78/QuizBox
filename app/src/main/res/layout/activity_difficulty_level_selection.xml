@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/difficulty_level_back"
+    tools:context=".DifficultyLevelSelectionActivity">
+
+    <NumberPicker
+        android:id="@+id/DifficultyLevelPicker"
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:layout_margin="20dp"
+        android:theme="@style/DifficultyLevelPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="327dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_textview"
+        android:backgroundTint="@color/teal_700"
+        android:fontFamily="@font/fabrica"
+        android:padding="20dp"
+        android:text="@string/level_select_heading"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/DifficultyLevelPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/next_btn"
+        android:textSize="22dp"
+        android:textColor="#291A1A"
+        app:backgroundTint="#72D6E8"
+        android:onClick="MoveToQuizActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DifficultyLevelPicker" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

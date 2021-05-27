@@ -14,19 +14,8 @@ public class CategorySelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_selection);
     }
-    public void MoveToQuizActivityIslamic(View view){
-        Intent intent=new Intent(this, IslamicLevelsActivity.class);
-        intent.putExtra("category",((TextView)view).getText().toString());
-        startActivity(intent);
-    }
-
-    public void MoveToQuizActivityScience(View view) {
-        Intent intent=new Intent(this, IslamicLevelsActivity.class);
-        intent.putExtra("category",((TextView)view).getText().toString());
-        startActivity(intent);
-    }
-    public void MoveToQuizActivityHistory(View view) {
-        Intent intent=new Intent(this, IslamicLevelsActivity.class);
+    public void MoveToDifficultyLevelSelectionActivity(View view){
+        Intent intent=new Intent(this, DifficultyLevelSelectionActivity.class);
         intent.putExtra("category",((TextView)view).getText().toString());
         startActivity(intent);
     }

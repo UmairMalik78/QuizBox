@@ -3,30 +3,41 @@ package com.example.quizbox;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class QuizActivity extends AppCompatActivity {
-    TextView questionDescription, option1, option2, option3, option4, questionNum, score, levelView;
+    TextView questionDescription, option1, option2, option3, option4, questionNum, score,timerTextView;
     int currentQuestionNum=1,quizScore=0;
-    Button nextBtn;
+    Button nextBtn,lifeline50_50Btn,lifelineAudiencePollBtn,lifelineSwapBtn;
     Question currentQuestion;
     boolean isAnyOptionSelected=false;
     int MAX_QUESTIONS=10,correctAnsCount=0;
     ArrayList<Question> allQuestions;
     Boolean[] answersStatusList=new Boolean[MAX_QUESTIONS];
     int[]shuffledIndices;
+    ProgressBar progressBar;
+    CountDownTimer countDownTimer;
+    int timer=0;
+    int MAX_TIME_IN_MILLIS=20000;
+    int COUNT_DOWN_INTERVAL_IN_MILLIS=1000;
+    String correctOptionView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,29 +50,54 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
         score = findViewById(R.id.scoreView);
         questionNum = findViewById(R.id.questionNumView);
-        levelView = findViewById(R.id.levelNoView);
         nextBtn=findViewById(R.id.nextBtn);
-        //getting category and levelNo
+        lifeline50_50Btn=findViewById(R.id.lifeline50_50);
+        lifelineAudiencePollBtn=findViewById(R.id.lifelineAudiencePoll);
+        lifelineSwapBtn=findViewById(R.id.lifelineSwap);
+        progressBar=findViewById(R.id.progress_bar);
+        progressBar.setProgress(timer);
+        timerTextView=findViewById(R.id.counter);
+        TextView textView=findViewById(R.id.myView);
+
+
+        //getting category and levelNo from previous activity
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         String levelNo = intent.getStringExtra("level");
 
         //getting all the questions.
         DBHelper dbHelper = new DBHelper(QuizActivity.this);
-        allQuestions = dbHelper.GetAllQuestions(category, levelNo);
+        allQuestions = dbHelper.GetAllQuestions(category, levelNo,"english");
 
         //Getting shuffled indices
         shuffledIndices=Question.GetShuffledIndices(0,MAX_QUESTIONS-1);
         currentQuestion=allQuestions.get(shuffledIndices[currentQuestionNum-1]);
         //Setting Elements
-        questionNum.setText(String.valueOf(currentQuestionNum));
-        levelView.setText(levelNo);
         SetQuestionNumber();
         SetQuestionAndOptions();
         SetScore();
+        StartCountDown();
     }
 
-    public void SetScore(){
+    public void StartCountDown() {
+        countDownTimer=new CountDownTimer(MAX_TIME_IN_MILLIS,COUNT_DOWN_INTERVAL_IN_MILLIS) {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onTick(long l) {
+                Log.d("ALC","Current TIMER"+(int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+                timer++;
+                timerTextView.setText(String.valueOf(timer));
+                progressBar.setProgress((int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+            }
+            @Override
+            public void onFinish() {
+                progressBar.setProgress(100);
+                timerTextView.setText("Time Finished");
+            }
+        }.start();
+    }
+
+    public void SetScore() {
         score.setText(String.valueOf(quizScore));
     }
 
@@ -114,24 +150,82 @@ public class QuizActivity extends AppCompatActivity {
         intent.putExtra("correctAnsCount",correctAnsCount);
         startActivity(intent);
     }
-
     public void CheckAnswer(View view){
         if(isAnyOptionSelected){
             Toast.makeText(QuizActivity.this,"Sorry You cannot select more than one options",Toast.LENGTH_SHORT).show();
             return;
         }
+        countDownTimer.cancel();
         String usersAns=((TextView)view).getText().toString();
+        Drawable background=((TextView)view).getBackground();
+        ShapeDrawable shapeDrawable = (ShapeDrawable) background;
         if(usersAns.equals(currentQuestion.getAnswer())){
+            ((TextView)view).getBackground().setColorFilter(Color.parseColor("#00FF00"), PorterDuff.Mode.SRC_ATOP);
+            shapeDrawable.getPaint().setColor(ContextCompat.getColor(this,R.color.green));
             correctAnsCount++;
-            ((TextView)view).setBackgroundResource(R.color.green);
             quizScore+=10;
             answersStatusList[currentQuestionNum-1]=true;
             isAnyOptionSelected=true;
             SetScore();
         }else{
-            ((TextView)view).setBackgroundResource(R.color.red);
+            ((TextView)view).getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
             isAnyOptionSelected=true;
             answersStatusList[currentQuestionNum-1]=false;
+            shapeDrawable.getPaint().setColor(ContextCompat.getColor(this,R.color.red));
         }
+    }
+
+    //50 : 50 Lifeline implementation
+
+    public void LifeLine50_50(View view){
+        int correctOptionNumber=getCorrectOptionNumber();
+        int randomOptionNum=getRandomOptionNumber(correctOptionNumber);
+        if(correctOptionNumber!=1 && randomOptionNum!=1)
+            option1.setVisibility(option1.GONE);
+        if(correctOptionNumber!=2 && randomOptionNum!=2)
+            option2.setVisibility(option2.GONE);
+        if(correctOptionNumber!=3 && randomOptionNum!=3)
+            option3.setVisibility(option3.GONE);
+        if(correctOptionNumber!=4 && randomOptionNum!=4)
+            option4.setVisibility(option4.GONE);
+    }
+
+    int getCorrectOptionNumber(){
+       String correctAns=currentQuestion.getAnswer();
+       if(correctAns.equals(currentQuestion.getOption1()))
+           return 1;
+       else if(correctAns.equals(currentQuestion.getOption2()))
+            return 2;
+       else if(correctAns.equals(currentQuestion.getOption3()))
+            return 3;
+        else
+            return 4;
+    }
+
+    int getRandomOptionNumber(int correctOptionNum){
+        int randomOptionNum=-1;
+        do{
+             randomOptionNum=(int)Math.floor(Math.random()*(4)+1);
+        }while (randomOptionNum == correctOptionNum);
+        return randomOptionNum;
+    }
+
+    /**********************END******************/
+
+
+    /**************** SWAP QUESTION LIFELINE **************/
+    public void swapQuestion(View view){
+        currentQuestion=allQuestions.get(shuffledIndices[10]);
+        updateAllTheElements();
+        isAnyOptionSelected=false;
+        clearOptions();
+        countDownTimer.cancel();
+        StartCountDown();
+    }
+    /**********************END******************/
+
+    public void audiencePollLifeLine(View view){
+
+
     }
 }
