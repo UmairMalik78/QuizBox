@@ -10,15 +10,53 @@
     tools:context=".QuizActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="378dp"
+        android:layout_height="57dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.38">
+
+        <Button
+            android:id="@+id/lifeline50_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:layout_weight="1"
+            android:text="50 : 50" />
+
+        <Button
+            android:id="@+id/lifelineSwap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:layout_weight="1"
+            android:text="Change" />
+
+        <Button
+            android:id="@+id/lifelineAudiencePoll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Audience Poll" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="408dp"
-        android:layout_height="336dp"
-        android:layout_marginBottom="88dp"
+        android:layout_width="362dp"
+        android:layout_height="311dp"
+        android:layout_marginTop="36dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionDescription"
+        app:layout_constraintVertical_bias="0.053">
 
         <TextView
             android:id="@+id/option1"
@@ -66,21 +104,23 @@
         android:layout_width="372dp"
         android:layout_height="89dp"
         android:layout_margin="20dp"
-        android:layout_marginBottom="4dp"
         android:background="@color/green"
         android:backgroundTint="#F2F3E8"
         android:gravity="center_horizontal"
         android:padding="15dp"
         android:text="TextView"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
+        style="@style/CircularDeterminateProgressBar"
+        android:indeterminateOnly="false"
+        android:progress="0"
+        android:progressDrawable="@drawable/circle"
+        android:rotation="-90"
         android:layout_width="116dp"
         android:layout_height="92dp"
         android:layout_marginTop="16dp"
@@ -104,41 +144,6 @@
         app:layout_constraintStart_toStartOf="@+id/progress_bar"
         app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="409dp"
-        android:layout_height="51dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/questionDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-        app:layout_constraintVertical_bias="0.311">
-
-        <Button
-            android:id="@+id/lifeline50_50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10sp"
-            android:layout_weight="1"
-            android:text="50 : 50" />
-
-        <Button
-            android:id="@+id/lifelineSwap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10sp"
-            android:layout_weight="1"
-            android:text="Change" />
-
-        <Button
-            android:id="@+id/lifelineAudiencePoll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Audience Poll" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/scoreView"
         android:layout_width="wrap_content"
@@ -150,20 +155,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/nextBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Next"
-        android:paddingLeft="40sp"
-        android:paddingRight="40sp"
-        android:textSize="20sp"
-        android:background="@drawable/custom_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/questionNumView"

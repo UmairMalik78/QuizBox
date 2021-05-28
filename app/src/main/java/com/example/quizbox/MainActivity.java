@@ -13,8 +13,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void MoveToCategorySelectionActivity(View view){
-        Intent intent=new Intent(this,CategorySelectionActivity.class);
+
+    public void MoveToCategorySelectionActivity(View view) {
+        Intent intent = new Intent(this, CategorySelectionActivity.class);
         startActivity(intent);
-     }
+    }
+
+    public void MoveToCategorySettingsActivity(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 }

@@ -50,7 +50,6 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
         score = findViewById(R.id.scoreView);
         questionNum = findViewById(R.id.questionNumView);
-        nextBtn=findViewById(R.id.nextBtn);
         lifeline50_50Btn=findViewById(R.id.lifeline50_50);
         lifelineAudiencePollBtn=findViewById(R.id.lifelineAudiencePoll);
         lifelineSwapBtn=findViewById(R.id.lifelineSwap);
@@ -59,36 +58,38 @@ public class QuizActivity extends AppCompatActivity {
         timerTextView=findViewById(R.id.counter);
         TextView textView=findViewById(R.id.myView);
 
-
         //getting category and levelNo from previous activity
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
-        String levelNo = intent.getStringExtra("level");
 
         //getting all the questions.
         DBHelper dbHelper = new DBHelper(QuizActivity.this);
-        allQuestions = dbHelper.GetAllQuestions(category, levelNo,"english");
+        allQuestions = dbHelper.GetAllQuestions(category,"english");
 
+        Log.e("ALC","Size of Array: "+String.valueOf(allQuestions.size()));
         //Getting shuffled indices
         shuffledIndices=Question.GetShuffledIndices(0,MAX_QUESTIONS-1);
+
         currentQuestion=allQuestions.get(shuffledIndices[currentQuestionNum-1]);
         //Setting Elements
         SetQuestionNumber();
         SetQuestionAndOptions();
         SetScore();
         StartCountDown();
+
     }
 
     public void StartCountDown() {
-        countDownTimer=new CountDownTimer(MAX_TIME_IN_MILLIS,COUNT_DOWN_INTERVAL_IN_MILLIS) {
+        countDownTimer = new CountDownTimer(MAX_TIME_IN_MILLIS, COUNT_DOWN_INTERVAL_IN_MILLIS) {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onTick(long l) {
-                Log.d("ALC","Current TIMER"+(int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+                Log.d("ALC", "Current TIMER" + (int) timer * 100 / (MAX_TIME_IN_MILLIS / COUNT_DOWN_INTERVAL_IN_MILLIS));
                 timer++;
                 timerTextView.setText(String.valueOf(timer));
-                progressBar.setProgress((int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+                progressBar.setProgress((int) timer * 100 / (MAX_TIME_IN_MILLIS / COUNT_DOWN_INTERVAL_IN_MILLIS));
             }
+
             @Override
             public void onFinish() {
                 progressBar.setProgress(100);
@@ -212,7 +213,6 @@ public class QuizActivity extends AppCompatActivity {
 
     /**********************END******************/
 
-
     /**************** SWAP QUESTION LIFELINE **************/
     public void swapQuestion(View view){
         currentQuestion=allQuestions.get(shuffledIndices[10]);
@@ -222,10 +222,11 @@ public class QuizActivity extends AppCompatActivity {
         countDownTimer.cancel();
         StartCountDown();
     }
+
     /**********************END******************/
 
+
     public void audiencePollLifeLine(View view){
-
-
+        /*Need to Implement*/
     }
 }

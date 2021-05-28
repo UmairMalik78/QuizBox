@@ -14,8 +14,8 @@ public class CategorySelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_selection);
     }
-    public void MoveToDifficultyLevelSelectionActivity(View view){
-        Intent intent=new Intent(this, DifficultyLevelSelectionActivity.class);
+    public void MoveToQuizActivity(View view){
+        Intent intent=new Intent(this, QuizActivity.class);
         intent.putExtra("category",((TextView)view).getText().toString());
         startActivity(intent);
     }

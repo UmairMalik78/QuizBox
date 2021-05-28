@@ -1,3 +1,4 @@
+/*
 package com.example.quizbox;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,4 +39,4 @@ public class DifficultyLevelSelectionActivity extends AppCompatActivity {
         intent.putExtra("category",category);
         intent.putExtra("level",difficultyLevelPicker.getValue());
     }
-}
+}*/
