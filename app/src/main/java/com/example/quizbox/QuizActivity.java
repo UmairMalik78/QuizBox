@@ -73,26 +73,34 @@ public class QuizActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(QuizActivity.this);
         allQuestions = dbHelper.GetAllQuestions(category,"english");
 
+        Log.e("ALC","Size of Array: "+String.valueOf(allQuestions.size()));
         //Getting shuffled indices
         shuffledIndices=Question.GetShuffledIndices(0,MAX_QUESTIONS-1);
+
         currentQuestion=allQuestions.get(shuffledIndices[currentQuestionNum-1]);
         //Setting Elements
         SetQuestionNumber();
         SetQuestionAndOptions();
         SetScore();
+<<<<<<< HEAD
         StartCountDown();*/
+=======
+        StartCountDown();
+
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
     }
 
     public void StartCountDown() {
-        countDownTimer=new CountDownTimer(MAX_TIME_IN_MILLIS,COUNT_DOWN_INTERVAL_IN_MILLIS) {
+        countDownTimer = new CountDownTimer(MAX_TIME_IN_MILLIS, COUNT_DOWN_INTERVAL_IN_MILLIS) {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onTick(long l) {
-                Log.d("ALC","Current TIMER"+(int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+                Log.d("ALC", "Current TIMER" + (int) timer * 100 / (MAX_TIME_IN_MILLIS / COUNT_DOWN_INTERVAL_IN_MILLIS));
                 timer++;
                 timerTextView.setText(String.valueOf(timer));
-                progressBar.setProgress((int)timer*100/(MAX_TIME_IN_MILLIS/COUNT_DOWN_INTERVAL_IN_MILLIS));
+                progressBar.setProgress((int) timer * 100 / (MAX_TIME_IN_MILLIS / COUNT_DOWN_INTERVAL_IN_MILLIS));
             }
+
             @Override
             public void onFinish() {
                 progressBar.setProgress(100);
@@ -225,12 +233,19 @@ public class QuizActivity extends AppCompatActivity {
         countDownTimer.cancel();
         StartCountDown();
     }
-    /**********************END******************/
 
+<<<<<<< HEAD
     public void audiencePollLifeLine(View view){
         BarChartFragment fragment1 = new BarChartFragment();
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.linearLayout, fragment1);
         transaction.commit();
+=======
+    /**********************END******************/
+
+
+    public void audiencePollLifeLine(View view){
+        /*Need to Implement*/
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
     }
 }

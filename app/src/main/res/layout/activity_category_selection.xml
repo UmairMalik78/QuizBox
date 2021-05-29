@@ -11,6 +11,7 @@
         android:id="@+id/ScienceCategpry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="68dp"
         android:onClick="MoveToQuizActivity"
         android:text="@string/science_category"
@@ -19,32 +20,61 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/islamicCategory" />
+=======
+        android:onClick="MoveToQuizActivity"
+        android:text="@string/science_category"
+        android:textSize="25pt"
+        app:layout_constraintBottom_toTopOf="@+id/HistoryCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
 
     <TextView
         android:id="@+id/HistoryCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="64dp"
+=======
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
         android:onClick="MoveToQuizActivity"
         android:text="@string/history_category"
         android:textSize="25pt"
+        app:layout_constraintBottom_toTopOf="@+id/SportsCategory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintHorizontal_bias="0.606"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/ScienceCategpry" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84" />
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
 
     <TextView
         android:id="@+id/SportsCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="60dp"
+=======
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
         android:onClick="MoveToQuizActivity"
         android:text="@string/sports_category"
         android:textSize="25pt"
+        app:layout_constraintBottom_toTopOf="@+id/MathCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.287"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/HistoryCategory" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.861" />
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
 
     <TextView
         android:id="@+id/MathCategory"
@@ -55,6 +85,7 @@
         android:textSize="25pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
         app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SportsCategory" />
@@ -71,6 +102,28 @@
         app:layout_constraintHorizontal_bias="0.669"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+=======
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.947" />
+
+    <TextView
+        android:id="@+id/IslamicCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="68dp"
+        android:onClick="MoveToQuizActivity"
+        android:text="@string/islamic_category"
+        android:textSize="25pt"
+        app:layout_constraintBottom_toTopOf="@+id/ScienceCategpry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <!--

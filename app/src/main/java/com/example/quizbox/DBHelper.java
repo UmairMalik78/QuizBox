@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String ENG_QUEST_TABLE = "QuestionPool";
-    public static final String URDU_QUEST_TABLE = "QuestionPool";
+    public static final String ENG_QUEST_TABLE = "QuestionPoolEng";
+    public static final String URDU_QUEST_TABLE = "QuestionPoolUrdu";
     public static final String QUESTION_ID = "id";
     public static final String DESCRIPTION = "description";
     public static final String CATEGORY = "category";
@@ -28,7 +28,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String IMAGE_PATH = "image_path";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "MyQuestionDB.db", null, 1);
+
+        super(context, "MyQuestionDB.db", null, 2);
         Log.d("ALC", "Database created");
     }
 
@@ -36,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d("ALC", "Database created");
         //String createTableSTatementOne = "CREATE TABLE CustTable(CustomerID Integer PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME_FIRST + " Text, CustomerAge Int, ActiveCustomer BOOL) ";
-        String createTableStatement = "CREATE TABLE " + ENG_QUEST_TABLE
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ENG_QUEST_TABLE
                 + "(" + QUESTION_ID + " Integer PRIMARY KEY AUTOINCREMENT,"
                 + CATEGORY + " Text, "
                 + DESCRIPTION + " Text, "
@@ -45,9 +46,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + OPTION_3 + " Text, "
                 + OPTION_4 + " Text, "
                 + ANSWER + " Text , "
-                + LEVEL + " Text )";
-        db.execSQL(createTableStatement);
-        createTableStatement = "CREATE TABLE " + URDU_QUEST_TABLE
+                + LEVEL + " Text )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + URDU_QUEST_TABLE
                 + "(" + QUESTION_ID + " Integer PRIMARY KEY AUTOINCREMENT,"
                 + CATEGORY + " Text, "
                 + DESCRIPTION + " Text, "
@@ -56,8 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + OPTION_3 + " Text, "
                 + OPTION_4 + " Text, "
                 + ANSWER + " Text , "
-                + LEVEL + " Text )";
-        db.execSQL(createTableStatement);
+                + LEVEL + " Text )");
     }
 
     void initializeEnglishQuestionTable() {
@@ -72,13 +71,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-
-    public void addQuestion(ArrayList<Question> questions,String language) {
+    public void addQuestion(ArrayList<Question> questions, String language) {
         String tableName;
-        if(language.toLowerCase().equals("urdu"))
-            tableName=URDU_QUEST_TABLE;
+        if (language.toLowerCase().equals("urdu"))
+            tableName = URDU_QUEST_TABLE;
         else
-            tableName=ENG_QUEST_TABLE;
+            tableName = ENG_QUEST_TABLE;
         SQLiteDatabase db = this.getWritableDatabase();
         for (int i = 0; i < questions.size(); i++) {
             Question question = questions.get(i);
@@ -98,17 +96,26 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+<<<<<<< HEAD
     public ArrayList<Question> GetAllQuestions(String questionCategory,String language) {
+=======
+    public ArrayList<Question> GetAllQuestions(String questionCategory, String language) {
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
         String tableName;
-        if(language.toLowerCase().equals("urdu"))
-            tableName=URDU_QUEST_TABLE;
+        if (language.toLowerCase().equals("urdu"))
+            tableName = URDU_QUEST_TABLE;
         else
-            tableName=ENG_QUEST_TABLE;
-
+            tableName = ENG_QUEST_TABLE;
+        Log.d("ALC", "Category" + questionCategory);
+        Log.d("ALC", "Language" + tableName);
         ArrayList<Question> questionList = new ArrayList<>();
         String query = "Select * from " + tableName + " WHERE " + CATEGORY + "=?";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+<<<<<<< HEAD
         Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{questionCategory});
+=======
+        Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{questionCategory.toLowerCase()});
+>>>>>>> 3d0e430987ecf9e230b1b70def861c1bf8a6570c
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
