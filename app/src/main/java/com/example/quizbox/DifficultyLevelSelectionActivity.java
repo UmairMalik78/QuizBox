@@ -33,9 +33,9 @@ public class DifficultyLevelSelectionActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String category=intent.getStringExtra("category");
     }
-    public void MoveToQuizActivity(View view){
+   /* public void MoveToQuizActivity(View view){
         Intent intent=new Intent(this,QuizActivity.class);
         intent.putExtra("category",category);
         intent.putExtra("level",difficultyLevelPicker.getValue());
-    }
+    }*/
 }

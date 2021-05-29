@@ -2,6 +2,7 @@ package com.example.quizbox;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -42,7 +43,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        //getting all the elements
+
+        OptionsFragment fragment1 = new OptionsFragment();
+        FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.linearLayout, fragment1);
+        transaction.commit();
+
+       /* //getting all the elements
         questionDescription = findViewById(R.id.questionDescription);
         option1 = findViewById(R.id.option1);
         option2 = findViewById(R.id.option2);
@@ -50,7 +57,6 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
         score = findViewById(R.id.scoreView);
         questionNum = findViewById(R.id.questionNumView);
-        nextBtn=findViewById(R.id.nextBtn);
         lifeline50_50Btn=findViewById(R.id.lifeline50_50);
         lifelineAudiencePollBtn=findViewById(R.id.lifelineAudiencePoll);
         lifelineSwapBtn=findViewById(R.id.lifelineSwap);
@@ -59,15 +65,13 @@ public class QuizActivity extends AppCompatActivity {
         timerTextView=findViewById(R.id.counter);
         TextView textView=findViewById(R.id.myView);
 
-
         //getting category and levelNo from previous activity
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
-        String levelNo = intent.getStringExtra("level");
 
         //getting all the questions.
         DBHelper dbHelper = new DBHelper(QuizActivity.this);
-        allQuestions = dbHelper.GetAllQuestions(category, levelNo,"english");
+        allQuestions = dbHelper.GetAllQuestions(category,"english");
 
         //Getting shuffled indices
         shuffledIndices=Question.GetShuffledIndices(0,MAX_QUESTIONS-1);
@@ -76,7 +80,7 @@ public class QuizActivity extends AppCompatActivity {
         SetQuestionNumber();
         SetQuestionAndOptions();
         SetScore();
-        StartCountDown();
+        StartCountDown();*/
     }
 
     public void StartCountDown() {
@@ -212,7 +216,6 @@ public class QuizActivity extends AppCompatActivity {
 
     /**********************END******************/
 
-
     /**************** SWAP QUESTION LIFELINE **************/
     public void swapQuestion(View view){
         currentQuestion=allQuestions.get(shuffledIndices[10]);
@@ -225,7 +228,9 @@ public class QuizActivity extends AppCompatActivity {
     /**********************END******************/
 
     public void audiencePollLifeLine(View view){
-
-
+        BarChartFragment fragment1 = new BarChartFragment();
+        FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.linearLayout, fragment1);
+        transaction.commit();
     }
 }

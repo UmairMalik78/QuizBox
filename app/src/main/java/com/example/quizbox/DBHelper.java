@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Question> GetAllQuestions(String questionCategory, String level,String language) {
+    public ArrayList<Question> GetAllQuestions(String questionCategory,String language) {
         String tableName;
         if(language.toLowerCase().equals("urdu"))
             tableName=URDU_QUEST_TABLE;
@@ -106,9 +106,9 @@ public class DBHelper extends SQLiteOpenHelper {
             tableName=ENG_QUEST_TABLE;
 
         ArrayList<Question> questionList = new ArrayList<>();
-        String query = "Select * from " + tableName + " WHERE " + CATEGORY + "=? AND " + LEVEL + "=?";
+        String query = "Select * from " + tableName + " WHERE " + CATEGORY + "=?";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{questionCategory, level});
+        Cursor cursor = sqLiteDatabase.rawQuery(query, new String[]{questionCategory});
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(0);
