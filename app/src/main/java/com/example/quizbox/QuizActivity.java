@@ -98,12 +98,13 @@ public class QuizActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void SetScore() {
-        score.setText(String.valueOf(quizScore));
+    public void SetScore()
+    {
+        score.setText("Score: "+String.valueOf(quizScore));
     }
 
     public void SetQuestionNumber(){
-        String text="Question Number: "+String.valueOf(currentQuestionNum);
+        String text="Q-"+String.valueOf(currentQuestionNum);
         questionNum.setText(text);
     }
 
