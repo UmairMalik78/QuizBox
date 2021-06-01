@@ -193,12 +193,12 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     int getCorrectOptionNumber(){
-       String correctAns=currentQuestion.getAnswer();
-       if(correctAns.equals(currentQuestion.getOption1()))
-           return 1;
-       else if(correctAns.equals(currentQuestion.getOption2()))
+        String correctAns=currentQuestion.getAnswer();
+        if(correctAns.equals(currentQuestion.getOption1()))
+            return 1;
+        else if(correctAns.equals(currentQuestion.getOption2()))
             return 2;
-       else if(correctAns.equals(currentQuestion.getOption3()))
+        else if(correctAns.equals(currentQuestion.getOption3()))
             return 3;
         else
             return 4;
@@ -207,7 +207,7 @@ public class QuizActivity extends AppCompatActivity {
     int getRandomOptionNumber(int correctOptionNum){
         int randomOptionNum=-1;
         do{
-             randomOptionNum=(int)Math.floor(Math.random()*(4)+1);
+            randomOptionNum=(int)Math.floor(Math.random()*(4)+1);
         }while (randomOptionNum == correctOptionNum);
         return randomOptionNum;
     }
