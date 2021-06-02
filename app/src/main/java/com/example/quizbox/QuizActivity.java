@@ -229,9 +229,14 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void audiencePollLifeLine(View view){
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("correctOption", Integer.toString(getCorrectOptionNumber()) );
         BarChartFragment fragment1 = new BarChartFragment();
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout, fragment1);
+        fragment1.setArguments(bundle);
         transaction.commit();
         /*Need to Implement*/
     }

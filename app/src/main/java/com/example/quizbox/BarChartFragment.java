@@ -15,11 +15,13 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BarChartFragment extends Fragment {
 
@@ -27,19 +29,25 @@ public class BarChartFragment extends Fragment {
     BarData bData;
     BarDataSet barDataSet;
     ArrayList barEntries;
+    String[]  labels = {"A","B","C","D"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bar_chart, container, false);
+
+        String option = getArguments().getString("correctOption");
+
         barChart=view.findViewById(R.id.barChart);
-        getEntries();
+        getEntries(Integer.parseInt(option));
 
         float groupSpace = 0.04f;
         float barSpace = 0.02f;
         float barWidth = 0.46f;
 
         barDataSet=new BarDataSet(barEntries,"Data Set");
+
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
 
 
         bData=new BarData(barDataSet);
@@ -59,12 +67,19 @@ public class BarChartFragment extends Fragment {
         return view;
     }
 
-    private void getEntries()
+    private void getEntries(int opt)
     {
+        int upperbound = 4;
+        int value=2;
         barEntries=new ArrayList<>();
-        barEntries.add(new BarEntry(1f,2));
-        barEntries.add(new BarEntry(2f,4));
-        barEntries.add(new BarEntry(3f,1));
-        barEntries.add(new BarEntry(4f,8));
+        for(int i=1;i<=4;i++) {
+            Random rand = new Random(); //instance of random class
+            //generate random values from 0-3
+            int int_random = rand.nextInt(upperbound);
+            if(opt==i){
+                int_random=upperbound * (int_random+1 );
+            }
+            barEntries.add(new BarEntry(i,int_random));
+        }
     }
 }
