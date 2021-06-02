@@ -2,6 +2,7 @@ package com.example.quizbox;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -228,6 +229,10 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void audiencePollLifeLine(View view){
+        BarChartFragment fragment1 = new BarChartFragment();
+        FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment1);
+        transaction.commit();
         /*Need to Implement*/
     }
 }

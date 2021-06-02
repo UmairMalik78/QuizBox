@@ -27,7 +27,6 @@ public class BarChartFragment extends Fragment {
     BarData bData;
     BarDataSet barDataSet;
     ArrayList barEntries;
-    private static final String[] DAYS = { "A", "B", "C", "D"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,16 +35,11 @@ public class BarChartFragment extends Fragment {
         barChart=view.findViewById(R.id.barChart);
         getEntries();
 
+        float groupSpace = 0.04f;
+        float barSpace = 0.02f;
+        float barWidth = 0.46f;
 
         barDataSet=new BarDataSet(barEntries,"Data Set");
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return DAYS[(int) value];
-            }
-        });
 
 
         bData=new BarData(barDataSet);
@@ -58,7 +52,6 @@ public class BarChartFragment extends Fragment {
         barChart.getXAxis().setEnabled(false);
         barChart.getAxisLeft().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
-        barChart.setContentDescription("abc");
 
 
 
