@@ -16,10 +16,9 @@
             android:textSize="25pt"
             app:layout_constraintBottom_toTopOf="@+id/HistoryCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintHorizontal_bias="0.42"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.75" />
+            app:layout_constraintTop_toBottomOf="@+id/IslamicCategory" />
 
         <TextView
             android:id="@+id/HistoryCategory"
@@ -30,10 +29,9 @@
             android:textSize="25pt"
             app:layout_constraintBottom_toTopOf="@+id/SportsCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.606"
+            app:layout_constraintHorizontal_bias="0.663"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.84" />
+            app:layout_constraintTop_toBottomOf="@+id/ScienceCategpry" />
 
         <TextView
             android:id="@+id/SportsCategory"
@@ -44,40 +42,35 @@
             android:textSize="25pt"
             app:layout_constraintBottom_toTopOf="@+id/MathCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.287"
+            app:layout_constraintHorizontal_bias="0.52"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.861" />
+            app:layout_constraintTop_toBottomOf="@+id/HistoryCategory" />
 
         <TextView
             android:id="@+id/MathCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:onClick="MoveToQuizActivity"
             android:text="@string/math_category"
             android:textSize="25pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.592"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.947" />
+            app:layout_constraintHorizontal_bias="0.566"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/IslamicCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="68dp"
+            android:layout_marginTop="60dp"
             android:onClick="MoveToQuizActivity"
             android:text="@string/islamic_category"
             android:textSize="25pt"
-            app:layout_constraintBottom_toTopOf="@+id/ScienceCategpry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.602"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <!--
