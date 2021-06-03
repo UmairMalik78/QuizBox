@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -29,7 +31,7 @@ public class BarChartFragment extends Fragment {
     BarData bData;
     BarDataSet barDataSet;
     ArrayList barEntries;
-    String[]  labels = {"A","B","C","D"};
+    ArrayList labelsName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,41 +39,47 @@ public class BarChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bar_chart, container, false);
 
         String option = getArguments().getString("correctOption");
-
+        labelsName=new ArrayList<>();
         barChart=view.findViewById(R.id.barChart);
         getEntries(Integer.parseInt(option));
 
-        float groupSpace = 0.04f;
-        float barSpace = 0.02f;
-        float barWidth = 0.46f;
 
         barDataSet=new BarDataSet(barEntries,"Data Set");
 
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-
+        Description desc=new Description();
+        desc.setText("");
+        barChart.setDescription(desc);
 
         bData=new BarData(barDataSet);
         barChart.setData(bData);
-        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
 
         barChart.setBackgroundColor(Color.rgb(255, 230, 230));
-        barChart.getXAxis().setEnabled(false);
+
+        //Code for hiding axis of graph
         barChart.getAxisLeft().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
 
-
-
-
+        //code for showing Xaxis labels
+        XAxis xAxis=barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labelsName));
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        
         return view;
     }
 
     private void getEntries(int opt)
     {
+        String[] options={"","A","B","C","D"};
         int upperbound = 4;
         int value=2;
         barEntries=new ArrayList<>();
+
         for(int i=1;i<=4;i++) {
             Random rand = new Random(); //instance of random class
             //generate random values from 0-3
@@ -80,6 +88,10 @@ public class BarChartFragment extends Fragment {
                 int_random=upperbound * (int_random+1 );
             }
             barEntries.add(new BarEntry(i,int_random));
+            labelsName.add(options[i-1]);
+
         }
+        labelsName.add(options[4]);
+        Log.d("ALC","Option"+labelsName);
     }
 }
