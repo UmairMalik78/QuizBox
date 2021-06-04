@@ -63,7 +63,9 @@
             android:background="@drawable/custom_textview"
             android:padding="10dp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="CheckAnswer"
+            />
 
         <TextView
             android:id="@+id/option2"
@@ -73,7 +75,8 @@
             android:background="@drawable/custom_textview"
             android:padding="10dp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="CheckAnswer" />
 
         <TextView
             android:id="@+id/option3"
@@ -83,7 +86,8 @@
             android:background="@drawable/custom_textview"
             android:padding="10dp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="CheckAnswer"/>
 
         <TextView
             android:id="@+id/option4"
@@ -91,9 +95,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/custom_textview"
+
             android:padding="10dp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="CheckAnswer"/>
 
     </LinearLayout>
 
@@ -178,6 +184,7 @@
         android:layout_width="361dp"
         android:layout_height="450dp"
         android:layout_marginTop="100dp"
+        android:keepScreenOn="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
