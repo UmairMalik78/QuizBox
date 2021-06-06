@@ -14,7 +14,7 @@
     <string name="level2">Level 2</string>
     <string name="level3">Level 3</string>
 -->
-    <string name="level_select_heading">Choose Difficulty Level</string>
+    <string name="LanguagePicker">Choose Quiz Language</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

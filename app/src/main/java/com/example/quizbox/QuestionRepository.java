@@ -1,13 +1,8 @@
 package com.example.quizbox;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import android.icu.text.Normalizer;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,26 +14,20 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
-public class CategorySelectionActivity extends AppCompatActivity {
-    ArrayList<Question>allQuestions;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_selection);
-    }
-    public void MoveToLanguageSelectionActivity(View view){
-     //  GetQuestions("english",((TextView)view).getText().toString());
-        Intent intent=new Intent(this, LanguageSelectionActivity.class);
-        intent.putExtra("category",((TextView)view).getText().toString());
-        startActivity(intent);
-    }
-    private  ArrayList<Question> GetQuestions(String lang, String category) {
+public class QuestionRepository {
+    static private ArrayList<Question> allQuestions;
+
+/*
+    static public ArrayList<Question> GetQuestions(String lang, String category,Context applicationContext) {
         String response;
         // Request a string response from the provided URL.
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://umairmalik125-001-site1.ctempurl.com/api/QuestionAPI/getQuestions/"+lang+"/"+category;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://umairmalik125-001-site1.ctempurl.com/api/QuestionAPI/getQuestions/english/"+category;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -46,15 +35,15 @@ public class CategorySelectionActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("ALC",response);
-                        ConvertJsonToList(response);
+                        allQuestions=ConvertJsonToList(response);
                         // Display the first 500 characters of the response string.
-                        Toast.makeText(CategorySelectionActivity.this, response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("ALC",error.toString());
-                Toast.makeText(CategorySelectionActivity.this, "Error Occurred ", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error Occurred ", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -62,13 +51,13 @@ public class CategorySelectionActivity extends AppCompatActivity {
         queue.add(stringRequest);
         return allQuestions;
     }
+*/
 
-    private ArrayList<Question> ConvertJsonToList(String jsonArray) {
+    static ArrayList<Question> ConvertJsonToList(String jsonArray) {
         ArrayList<Question> questionArrayList = new ArrayList<Question>();
         Gson gson = new Gson();
         Question[] questionList = gson.fromJson(jsonArray, Question[].class);
         Collections.addAll(questionArrayList, questionList);
         return questionArrayList;
     }
-
 }

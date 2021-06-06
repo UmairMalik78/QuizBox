@@ -11,36 +11,30 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_width="366dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="68dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <Button
-            android:id="@+id/lifeline50_50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5sp"
-            android:layout_weight="1"
-            android:text="50 : 50" />
-
-        <Button
-            android:id="@+id/lifelineSwap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5sp"
-            android:layout_weight="1"
-            android:text="Change" />
-
-        <Button
-            android:id="@+id/lifelineAudiencePoll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:onClick="audiencePollLifeLine"
-            android:text="Audience Poll" />
+            app:srcCompat="@drawable/audience_poll" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="179dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="LifeLine50_50"
+            app:srcCompat="@drawable/fifty_fifty" />
     </LinearLayout>
 
     <LinearLayout
@@ -190,7 +184,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <!--    <LinearLayout

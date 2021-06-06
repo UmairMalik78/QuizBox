@@ -4,48 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/difficulty_level_back"
-    tools:context=".DifficultyLevelSelectionActivity">
+    android:background="@drawable/language_selection_back"
+    tools:context=".LanguageSelectionActivity">
 
     <NumberPicker
         android:id="@+id/DifficultyLevelPicker"
-        android:layout_width="match_parent"
-        android:layout_height="200px"
+        android:layout_width="357dp"
+        android:layout_height="96dp"
         android:layout_margin="20dp"
-        android:theme="@style/DifficultyLevelPicker"
+        android:theme="@style/LanguagePicker"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="327dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="376dp"
+        android:layout_height="103dp"
         android:background="@drawable/custom_textview"
         android:backgroundTint="@color/teal_700"
-        android:fontFamily="@font/fabrica"
-        android:padding="20dp"
-        android:text="@string/level_select_heading"
+        android:fontFamily="@font/aquire"
+        android:gravity="center"
+        android:padding="10px"
+        android:text="@string/LanguagePicker"
         android:textColor="@color/black"
-        android:textSize="25dp"
-
+        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/DifficultyLevelPicker"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.531" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="165dp"
+        android:layout_height="45dp"
         android:background="@drawable/custom_button"
+        android:onClick="MoveToQuizActivity"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="@string/next_btn"
-        android:textSize="22dp"
         android:textColor="#291A1A"
-        app:backgroundTint="#72D6E8"
-        android:onClick="MoveToQuizActivity"
+        android:textSize="22dp"
+        app:backgroundTint="#E2ADFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,64 @@
+package com.example.quizbox;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class LanguageSelectionActivity extends AppCompatActivity {
+    String category;
+    NumberPicker difficultyLevelPicker;
+    ArrayList<Question> allQuestions;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_language_selection);
+        difficultyLevelPicker=findViewById(R.id.DifficultyLevelPicker);
+        difficultyLevelPicker.setValue(0);
+        difficultyLevelPicker.setMinValue(0);
+        difficultyLevelPicker.setMaxValue(1);
+
+        difficultyLevelPicker.setDisplayedValues(new String[]{"English","Urdu"});
+
+        difficultyLevelPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                difficultyLevelPicker.setValue(newVal);
+            }
+        });
+        //Getting Intent
+        Intent intent=getIntent();
+        String category=intent.getStringExtra("category");
+
+    }
+    public void MoveToQuizActivity(View view){
+        category=getIntent().getStringExtra("category");
+        String lang;
+        if(difficultyLevelPicker.getValue()==0)
+            lang="English";
+        else
+            lang="urdu";
+
+        Intent intent=new Intent(this, QuizActivity.class);
+        intent.putExtra("category",category);
+        intent.putExtra("lang",lang);
+        startActivity(intent);
+    }
+}

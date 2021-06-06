@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.annotation.SuppressLint;
@@ -24,12 +25,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity implements OnResponse {
     TextView questionDescription, option1, option2, option3, option4, questionNum, score,timerTextView;
     int currentQuestionNum=1,quizScore=0;
     Button nextBtn,lifeline50_50Btn,lifelineAudiencePollBtn,lifelineSwapBtn;
@@ -38,14 +50,31 @@ public class QuizActivity extends AppCompatActivity {
     int MAX_QUESTIONS=10,correctAnsCount=0;
     ArrayList<Question> allQuestions;
     Boolean[] answersStatusList=new Boolean[MAX_QUESTIONS];
-    int[]shuffledIndices;
+    ArrayList<Integer>shuffledIndices;
     ProgressBar progressBar;
     CountDownTimer countDownTimer;
     int timer=0;
     int MAX_TIME_IN_MILLIS=20000;
     int COUNT_DOWN_INTERVAL_IN_MILLIS=1000;
     String correctOptionView;
+    int clickDisableFlag=1;
+    final int TOTAL_LEVELS=3;
+    final int QUESTION_IN_EACH_LEVEL=5;
 
+    @Override
+    public void onResponse() {
+        //Getting shuffled indices
+        shuffledIndices=MyMath.GetShuffleIndices(TOTAL_LEVELS,QUESTION_IN_EACH_LEVEL);
+        //Setting First Question
+        currentQuestion=allQuestions.get(shuffledIndices.get(currentQuestionNum-1));
+        //Setting Elements
+        SetQuestionNumber();
+        SetQuestionAndOptions();
+        SetScore();
+        StartCountDown();
+        ToggleClickFunctionalityOfOptionsViews();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,33 +88,16 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
         score = findViewById(R.id.scoreView);
         questionNum = findViewById(R.id.questionNumView);
-        lifeline50_50Btn=findViewById(R.id.lifeline50_50);
-        lifelineAudiencePollBtn=findViewById(R.id.lifelineAudiencePoll);
-        lifelineSwapBtn=findViewById(R.id.lifelineSwap);
         progressBar=findViewById(R.id.progress_bar);
         progressBar.setProgress(timer);
         timerTextView=findViewById(R.id.counter);
-     //   TextView textView=findViewById(R.id.myView);
-
-        //getting category and levelNo from previous activity
+        // TextView textView=findViewById(R.id.myView);
+        // getting category and lang from previous activity
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
-
-        //getting all the questions.
-        DBHelper dbHelper = new DBHelper(QuizActivity.this);
-        allQuestions = dbHelper.GetAllQuestions(category,"english");
-
-        Log.e("ALC","Size of Array: "+String.valueOf(allQuestions.size()));
-        //Getting shuffled indices
-        shuffledIndices=Question.GetShuffledIndices(0,MAX_QUESTIONS-1);
-
-        currentQuestion=allQuestions.get(shuffledIndices[currentQuestionNum-1]);
-        //Setting Elements
-        SetQuestionNumber();
-        SetQuestionAndOptions();
-        SetScore();
-        StartCountDown();
-
+        String lang = intent.getStringExtra("lang");
+        // getting all the questions from API.
+        GetQuestions(lang,category);
     }
 
     public void SetScore()
@@ -130,7 +142,7 @@ public class QuizActivity extends AppCompatActivity {
             MoveToResultActivity();
             return;
         }
-        currentQuestion=allQuestions.get(shuffledIndices[currentQuestionNum-1]);
+        currentQuestion=allQuestions.get(shuffledIndices.get(currentQuestionNum-1));
         updateAllTheElements();
         isAnyOptionSelected=false;
 
@@ -170,6 +182,7 @@ public class QuizActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void CheckAnswer(View view){
+        ToggleClickFunctionalityOfOptionsViews();
         countDownTimer.cancel();
         String usersAns=((TextView)view).getText().toString();
 
@@ -184,18 +197,32 @@ public class QuizActivity extends AppCompatActivity {
             ((TextView)view).getBackground().setColorFilter(Color.parseColor("#F31C1C"), PorterDuff.Mode.SRC_ATOP);
             isAnyOptionSelected=true;
             answersStatusList[currentQuestionNum-1]=false;
-
         }
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 SetNextQuestionOnScreen();
+                ToggleClickFunctionalityOfOptionsViews();
             }
         }, 1000);
 
     }
-
+    //Disabling clicks when an option is selected
+    private void ToggleClickFunctionalityOfOptionsViews(){
+        clickDisableFlag=clickDisableFlag*-1;
+        if(clickDisableFlag==1){//1 -> means to disable clicks
+            option1.setClickable(false);
+            option2.setClickable(false);
+            option3.setClickable(false);
+            option4.setClickable(false);
+        }else{//0->means to enable
+            option1.setClickable(true);
+            option2.setClickable(true);
+            option3.setClickable(true);
+            option4.setClickable(true);
+        }
+    }
     //50 : 50 Lifeline implementation
 
     public void LifeLine50_50(View view){
@@ -235,11 +262,11 @@ public class QuizActivity extends AppCompatActivity {
 
     /**************** SWAP QUESTION LIFELINE **************/
     public void swapQuestion(View view){
-        currentQuestion=allQuestions.get(shuffledIndices[10]);
+        countDownTimer.cancel();
+        currentQuestion=allQuestions.get(shuffledIndices.get(MAX_QUESTIONS));
         updateAllTheElements();
         isAnyOptionSelected=false;
        // clearOptions();
-        countDownTimer.cancel();
         StartCountDown();
     }
 
@@ -258,5 +285,39 @@ public class QuizActivity extends AppCompatActivity {
         transaction.commit();
         /*Need to Implement*/
     }
+    public void GetQuestions(String lang,String category){
+        String response;
+        // Request a string response from the provided URL.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://umairmalik125-001-site1.ctempurl.com/api/QuestionAPI/getQuestions/"+lang+"/"+category;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("ALC",response);
+                        allQuestions=ConvertJsonToList(response);
+                        QuizActivity.this.onResponse();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ALC",error.toString());
+                Toast.makeText(QuizActivity.this, "Error Occurred ", Toast.LENGTH_LONG).show();
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    ArrayList<Question> ConvertJsonToList(String jsonArray) {
+        ArrayList<Question> questionArrayList = new ArrayList<Question>();
+        Gson gson = new Gson();
+        Question[] questionList = gson.fromJson(jsonArray, Question[].class);
+        Collections.addAll(questionArrayList, questionList);
+        return questionArrayList;
+    }
+        
+
 
 }

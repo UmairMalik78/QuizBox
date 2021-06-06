@@ -1,14 +1,16 @@
 
 package com.example.quizbox;
 
+import android.content.Intent;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Question {
-    public String QuestionDescription;
+public class Question{
+    public String questionDescription;
     private String category;
     private String option1;
     private String option2;
@@ -27,11 +29,11 @@ public class Question {
 
 
     public String getQuestionDescription() {
-        return QuestionDescription;
+        return questionDescription;
     }
 
     public void setQuestionDescription(String questionDescription) {
-        QuestionDescription = questionDescription;
+        questionDescription = questionDescription;
     }
 
     public String getCategory() {
@@ -83,7 +85,7 @@ public class Question {
     }
 
     public Question(String questionDescription, String option1, String option2, String option3, String option4, String answer) {
-        QuestionDescription = questionDescription;
+        questionDescription  = questionDescription;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
@@ -91,33 +93,4 @@ public class Question {
         this.answer = answer;
     }
 
-/*
-    static public ArrayList<Question> ShuffleQuestions(ArrayList<Question> questionsList) {
-        int currentIndex = 0, totalQuestions = questionsList.size();
-        Log.e("ALC","Shuffling");
-        for (int i = 0; i < totalQuestions; i++) {
-            int randomIndex = (int)Math.floor(Math.random()*(totalQuestions-currentIndex)+currentIndex);
-            Question temp=questionsList.get(randomIndex);
-     		questionsList.set(randomIndex,questionsList.get(currentIndex));
-     		questionsList.set(currentIndex,temp);
-     		currentIndex++;
-        }
-        return questionsList;
-    }
-*/
-    static public int[] GetShuffledIndices(int min,int max){
-        int valuesCount=max-min+1;
-        int[] originalSequencedArray=new int[valuesCount];
-        int[] indicesArray=new int[valuesCount];
-        for(int i=0;i<valuesCount;i++){originalSequencedArray[i]=i;}
-        for (min = 0; min < valuesCount; min++) {
-            int randomIndex=(int)Math.floor(Math.random()*(max-min+1)+min);
-            indicesArray[min]= originalSequencedArray[randomIndex];
-            originalSequencedArray[randomIndex]=originalSequencedArray[min];
-        }
-        for(int i=0;i<indicesArray.length;i++){
-            Log.e("Random",String.valueOf(indicesArray[i]));
-        }
-        return indicesArray;
-    }
 }
