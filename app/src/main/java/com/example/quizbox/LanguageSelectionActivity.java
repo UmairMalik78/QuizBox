@@ -3,9 +3,11 @@ package com.example.quizbox;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LanguageSelectionActivity extends AppCompatActivity {
+    MediaPlayer optionClickMediaPlayer;
     String category;
     NumberPicker difficultyLevelPicker;
     ArrayList<Question> allQuestions;
@@ -49,6 +52,7 @@ public class LanguageSelectionActivity extends AppCompatActivity {
 
     }
     public void MoveToQuizActivity(View view){
+        playSoundOnButtonClick(view);
         category=getIntent().getStringExtra("category");
         String lang;
         if(difficultyLevelPicker.getValue()==0)
@@ -61,4 +65,17 @@ public class LanguageSelectionActivity extends AppCompatActivity {
         intent.putExtra("lang",lang);
         startActivity(intent);
     }
+    public void playSoundOnButtonClick(View view) {
+        optionClickMediaPlayer= MediaPlayer.create(this,R.raw.click);
+        optionClickMediaPlayer.start();
+        optionClickMediaPlayer.setLooping(false);
+        optionClickMediaPlayer.setOnCompletionListener(new  MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                optionClickMediaPlayer.reset();
+                optionClickMediaPlayer.release();
+            }
+        });
+    }
+
 }

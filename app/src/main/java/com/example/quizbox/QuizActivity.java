@@ -3,10 +3,14 @@ package com.example.quizbox;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
+import android.opengl.Visibility;
 import android.os.Handler;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +46,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import soup.neumorphism.NeumorphButton;
+import soup.neumorphism.NeumorphTextView;
+
 public class QuizActivity extends AppCompatActivity implements OnResponse {
-    TextView questionDescription, option1, option2, option3, option4, questionNum, score,timerTextView;
+    MediaPlayer optionClickMediaPlayer,timerMediaPlayer;
+    TextView questionDescription, questionNum, score,timerTextView;
+    NeumorphButton option1,option2, option3, option4;
     int currentQuestionNum=1,quizScore=0;
+    NeumorphButton closeBtn;
     Button nextBtn,lifeline50_50Btn,lifelineAudiencePollBtn,lifelineSwapBtn;
     Question currentQuestion;
     boolean isAnyOptionSelected=false;
@@ -60,6 +71,10 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     int clickDisableFlag=1;
     final int TOTAL_LEVELS=3;
     final int QUESTION_IN_EACH_LEVEL=5;
+    ProgressBar loader;
+    LinearLayout optionsLayout,lifeLineLayout;
+    boolean isAudiencePollUsed=false,isFiftyFiftyUsed=false;
+
 
     @Override
     public void onResponse() {
@@ -71,9 +86,11 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         SetQuestionNumber();
         SetQuestionAndOptions();
         SetScore();
+        ShowHidedElements();
+        playTimerSound();
         StartCountDown();
         ToggleClickFunctionalityOfOptionsViews();
-
+        loader.setVisibility(View.GONE);
     }
 
     @Override
@@ -81,6 +98,9 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         //getting all the elements
+        lifeLineLayout=findViewById(R.id.linearLayoutForLifelines);
+        optionsLayout=findViewById(R.id.linearLayoutForOptions);
+        closeBtn=findViewById(R.id.closeBtn);
         questionDescription = findViewById(R.id.questionDescription);
         option1 = findViewById(R.id.option1);
         option2 = findViewById(R.id.option2);
@@ -91,14 +111,33 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         progressBar=findViewById(R.id.progress_bar);
         progressBar.setProgress(timer);
         timerTextView=findViewById(R.id.counter);
+        loader=findViewById(R.id.loader);
         // TextView textView=findViewById(R.id.myView);
         // getting category and lang from previous activity
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         String lang = intent.getStringExtra("lang");
+
+        //Toast msg to show loading
+        Toast.makeText(this,"Wait while questions loading",Toast.LENGTH_LONG).show();
+        //Hiding elements until question load into memory
+        HideElements();
+
         // getting all the questions from API.
         GetQuestions(lang,category);
     }
+
+    private void HideElements() {
+        lifeLineLayout.setVisibility(View.GONE);
+        optionsLayout.setVisibility(View.GONE);
+        questionDescription.setVisibility(View.GONE);
+    }
+    private void ShowHidedElements() {
+        lifeLineLayout.setVisibility(View.VISIBLE);
+        optionsLayout.setVisibility(View.VISIBLE);
+        questionDescription.setVisibility(View.VISIBLE);
+    }
+
 
     public void SetScore()
     {
@@ -116,11 +155,10 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         option2.setText(currentQuestion.getOption2());
         option3.setText(currentQuestion.getOption3());
         option4.setText(currentQuestion.getOption4());
-
-        option1.setBackground(getResources().getDrawable(R.drawable.custom_textview));
-        option2.setBackground(getResources().getDrawable(R.drawable.custom_textview));
-        option3.setBackground(getResources().getDrawable(R.drawable.custom_textview));
-        option4.setBackground(getResources().getDrawable(R.drawable.custom_textview));
+        (option1).setBackgroundColor(getResources().getColor(R.color.white));
+        (option2).setBackgroundColor(getResources().getColor(R.color.white));
+        (option3).setBackgroundColor(getResources().getColor(R.color.white));
+        (option4).setBackgroundColor(getResources().getColor(R.color.white));
 
     }
 
@@ -131,8 +169,9 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
 
 
     public void SetNextQuestionOnScreen(){
+        playTimerSound();
         StartCountDown();
-
+        CloseFragment(closeBtn);
         currentQuestionNum=currentQuestionNum+1;
         if(currentQuestionNum==MAX_QUESTIONS){//checks if last question has come?
           //  String text="Finish Quiz";
@@ -145,7 +184,7 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         currentQuestion=allQuestions.get(shuffledIndices.get(currentQuestionNum-1));
         updateAllTheElements();
         isAnyOptionSelected=false;
-
+        SetAllOptionsVisible();
     }
     public void StartCountDown() {
         timer=0;
@@ -168,12 +207,6 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
             }
         }.start();
     }
-    /*public void clearOptions(){
-        option1.setBackgroundResource(R.color.white);
-        option2.setBackgroundResource(R.color.white);
-        option3.setBackgroundResource(R.color.white);
-        option4.setBackgroundResource(R.color.white);
-    }*/
 
     private void MoveToResultActivity() {
         Intent intent=new Intent(this,ResultActivity.class);
@@ -185,16 +218,15 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         ToggleClickFunctionalityOfOptionsViews();
         countDownTimer.cancel();
         String usersAns=((TextView)view).getText().toString();
-
         if(usersAns.equals(currentQuestion.getAnswer())){
-           ((TextView)view).getBackground().setColorFilter(Color.parseColor("#5ECF45"), PorterDuff.Mode.SRC_ATOP);
+            ((NeumorphButton)view).setBackgroundColor(getResources().getColor(R.color.green ));;
             correctAnsCount++;
             quizScore+=10;
             answersStatusList[currentQuestionNum-1]=true;
             isAnyOptionSelected=true;
             SetScore();
         }else{
-            ((TextView)view).getBackground().setColorFilter(Color.parseColor("#F31C1C"), PorterDuff.Mode.SRC_ATOP);
+            ((NeumorphButton)view).setBackgroundColor(getResources().getColor(R.color.red));
             isAnyOptionSelected=true;
             answersStatusList[currentQuestionNum-1]=false;
         }
@@ -226,6 +258,11 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     //50 : 50 Lifeline implementation
 
     public void LifeLine50_50(View view){
+        if(isFiftyFiftyUsed){
+            Toast.makeText(this,"Lifeline already used!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        isFiftyFiftyUsed=true;
         int correctOptionNumber=getCorrectOptionNumber();
         int randomOptionNum=getRandomOptionNumber(correctOptionNumber);
         if(correctOptionNumber!=1 && randomOptionNum!=1)
@@ -236,6 +273,13 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
             option3.setVisibility(option3.GONE);
         if(correctOptionNumber!=4 && randomOptionNum!=4)
             option4.setVisibility(option4.GONE);
+    }
+    //TO display again after next question
+    void SetAllOptionsVisible(){
+        option1.setVisibility(option1.VISIBLE);
+        option2.setVisibility(option2.VISIBLE);
+        option3.setVisibility(option3.VISIBLE);
+        option4.setVisibility(option4.VISIBLE);
     }
 
     int getCorrectOptionNumber(){
@@ -260,7 +304,9 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
 
     /**********************END******************/
 
-    /**************** SWAP QUESTION LIFELINE **************/
+
+    /**************** SWAP QUESTION LIFELINE **************//*
+
     public void swapQuestion(View view){
         countDownTimer.cancel();
         currentQuestion=allQuestions.get(shuffledIndices.get(MAX_QUESTIONS));
@@ -270,18 +316,25 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         StartCountDown();
     }
 
-    /**********************END******************/
+    */
+/**********************END******************/
+
 
 
     public void audiencePollLifeLine(View view){
-
+        if(isAudiencePollUsed){
+            Toast.makeText(this,"Lifeline already used!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        isAudiencePollUsed=true;
         Bundle bundle = new Bundle();
-
         bundle.putString("correctOption", Integer.toString(getCorrectOptionNumber()) );
         BarChartFragment fragment1 = new BarChartFragment();
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout, fragment1);
         fragment1.setArguments(bundle);
+        //before display fragment, visible close btn to get back from fragment
+        closeBtn.setVisibility(View.VISIBLE);
         transaction.commit();
         /*Need to Implement*/
     }
@@ -317,7 +370,53 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         Collections.addAll(questionArrayList, questionList);
         return questionArrayList;
     }
-        
 
+    public void CloseFragment(View view){
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.frameLayout);
+        if(fragment!=null){
+            fragmentManager.beginTransaction();
+            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.remove(fragment);
+            fragmentTransaction.commit();
+            ((Button)view).setVisibility(View.GONE);
+        }
+    }
+    private void playTimerSound(){
+        if(timerMediaPlayer!=null && timerMediaPlayer.isPlaying()){
+            timerMediaPlayer.reset();
+            timerMediaPlayer.release();
+            timerMediaPlayer=null;
+        }
+        timerMediaPlayer=MediaPlayer.create(QuizActivity.this,R.raw.tick_tock_bell);
+        timerMediaPlayer.start();
+        timerMediaPlayer.setLooping(false);
+        timerMediaPlayer.setOnCompletionListener(new  MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                timerMediaPlayer.reset();
+                timerMediaPlayer.release();
+            }
+        });
+    }
+    //for playing sound each time option is clicked
+    public void playSoundOnButtonClick(View view) {
+        optionClickMediaPlayer=MediaPlayer.create(QuizActivity.this,R.raw.click);
+        optionClickMediaPlayer.start();
+        optionClickMediaPlayer.setLooping(false);
+        optionClickMediaPlayer.setOnCompletionListener(new  MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                optionClickMediaPlayer.reset();
+                optionClickMediaPlayer.release();
+            }
+        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        timerMediaPlayer.reset();
+        timerMediaPlayer.release();
+    }
 }

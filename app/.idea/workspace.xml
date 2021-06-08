@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="487ac962-9da6-4385-ae5f-4d3aa742caf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/balloons.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/cursor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/custom_round_btn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/history_catg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/home1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/home2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/home4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/islamic_catg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/math_catg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/puzzle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/result1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/science_catg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/sports_catg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/font/aero.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/font/freesans.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/neumorphic.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/icon_app.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/raw/click.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/raw/tick_tock_bell.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/BarChartFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quizbox/BarChartFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/CategorySelectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quizbox/CategorySelectionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/DBHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/LanguageSelectionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quizbox/LanguageSelectionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quizbox/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/QuestionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/QuizActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quizbox/QuizActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quizbox/SettingsActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/custom_textview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/custom_textview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_category_selection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_category_selection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_quiz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_quiz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_bar_chart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_bar_chart.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/themes.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1tfycz0mEZe0wSZtat2rjpE2cu0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="487ac962-9da6-4385-ae5f-4d3aa742caf7" name="Default Changelist" comment="" />
+      <created>1623174521788</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623174521788</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="284" key="FileChooserDialogImpl" timestamp="1623174554319">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="740" y="284" key="FileChooserDialogImpl/0.40.1920.1040@0.40.1920.1040" timestamp="1623174554319" />
+  </component>
+</project>

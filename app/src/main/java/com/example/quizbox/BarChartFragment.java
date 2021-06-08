@@ -42,8 +42,7 @@ public class BarChartFragment extends Fragment {
         labelsName=new ArrayList<>();
         barChart=view.findViewById(R.id.barChart);
         getEntries(Integer.parseInt(option));
-
-
+        view.invalidate();
         barDataSet=new BarDataSet(barEntries,"Data Set");
 
         Description desc=new Description();
@@ -52,7 +51,7 @@ public class BarChartFragment extends Fragment {
 
         bData=new BarData(barDataSet);
         barChart.setData(bData);
-        barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
 
@@ -75,7 +74,7 @@ public class BarChartFragment extends Fragment {
 
     private void getEntries(int opt)
     {
-        String[] options={"","A","B","C","D"};
+        String[] options={"A","B","C","D"};
         int upperbound = 4;
         int value=2;
         barEntries=new ArrayList<>();
@@ -87,11 +86,14 @@ public class BarChartFragment extends Fragment {
             if(opt==i){
                 int_random=upperbound * (int_random+1 );
             }
-            barEntries.add(new BarEntry(i,int_random));
+            barEntries.add(new BarEntry(i-1,int_random+3));
             labelsName.add(options[i-1]);
-
+            Log.d("ALC",Integer.toString(int_random+3));
         }
-        labelsName.add(options[4]);
+//        labelsName.add(options[4]);
         Log.d("ALC","Option"+labelsName);
+    }
+    public void CLoseFragment(View view){
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 }
