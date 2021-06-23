@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -15,6 +16,13 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        ImageView cartoonImg=findViewById(R.id.cartoon_img_result);
+        cartoonImg.setTranslationX(-300);
+
+        cartoonImg.setAlpha(0f);
+
+        cartoonImg.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(400).start();
 
         //Getting information returned by quiz_activity
         Intent intent=getIntent();
