@@ -1,5 +1,6 @@
 package com.example.quizbox;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -41,6 +42,7 @@ import com.google.gson.Gson;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -59,12 +61,20 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     Question currentQuestion;
     boolean isAnyOptionSelected=false;
     int MAX_QUESTIONS=10,correctAnsCount=0;
-    ArrayList<Question> allQuestions;
+    ArrayList<Question> allQuestions,currentLevelQuestions;
     Boolean[] answersStatusList=new Boolean[MAX_QUESTIONS];
     ArrayList<Integer>shuffledIndices;
     ProgressBar progressBar;
     CountDownTimer countDownTimer;
-    int timer=0;
+    int timer=0,currentLevelNo=1,currentLevelStartingIndex=0;
+    FrameLayout frameLayout;
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("value",timer);
+    }
+
     int MAX_TIME_IN_MILLIS=20000;
     int COUNT_DOWN_INTERVAL_IN_MILLIS=1000;
     String correctOptionView;
@@ -75,13 +85,12 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     LinearLayout optionsLayout,lifeLineLayout;
     boolean isAudiencePollUsed=false,isFiftyFiftyUsed=false;
 
-
     @Override
     public void onResponse() {
-        //Getting shuffled indices
-        shuffledIndices=MyMath.GetShuffleIndices(TOTAL_LEVELS,QUESTION_IN_EACH_LEVEL);
+        //Shuffling Questions
+        Collections.shuffle(allQuestions);
         //Setting First Question
-        currentQuestion=allQuestions.get(shuffledIndices.get(currentQuestionNum-1));
+        currentQuestion=allQuestions.get(currentQuestionNum-1);
         //Setting Elements
         SetQuestionNumber();
         SetQuestionAndOptions();
@@ -91,12 +100,13 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         StartCountDown();
         ToggleClickFunctionalityOfOptionsViews();
         loader.setVisibility(View.GONE);
+        PerformAnimations();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
         //getting all the elements
         lifeLineLayout=findViewById(R.id.linearLayoutForLifelines);
         optionsLayout=findViewById(R.id.linearLayoutForOptions);
@@ -107,6 +117,7 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
         score = findViewById(R.id.scoreView);
+        frameLayout=findViewById(R.id.frameLayout);
         questionNum = findViewById(R.id.questionNumView);
         progressBar=findViewById(R.id.progress_bar);
         progressBar.setProgress(timer);
@@ -125,6 +136,32 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
 
         // getting all the questions from API.
         GetQuestions(lang,category);
+
+        //Checking if onSaveInstanceState contains old timer valye or not?
+        if(savedInstanceState!=null){
+            timer=savedInstanceState.getInt("value");
+        }
+    }
+
+    private void PerformAnimations(){
+        option1.setTranslationY(300);
+        option2.setTranslationY(300);
+        option3.setTranslationY(300);
+        option4.setTranslationY(300);
+        questionDescription.setTranslationX(300);
+
+        option1.setAlpha(0);
+        option2.setAlpha(0);
+        option3.setAlpha(0);
+        option4.setAlpha(0);
+        questionDescription.setAlpha(0);
+
+        option1.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        option2.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        option3.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        option4.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+
+        questionDescription.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(400).start();
     }
 
     private void HideElements() {
@@ -169,6 +206,7 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
 
 
     public void SetNextQuestionOnScreen(){
+        PerformAnimations();
         playTimerSound();
         StartCountDown();
         CloseFragment(closeBtn);
@@ -177,11 +215,13 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
           //  String text="Finish Quiz";
            // nextBtn.setText(text);
         }else if(currentQuestionNum>MAX_QUESTIONS){
+            timerMediaPlayer.reset();
+            timerMediaPlayer.release();
             countDownTimer.cancel();
             MoveToResultActivity();
             return;
         }
-        currentQuestion=allQuestions.get(shuffledIndices.get(currentQuestionNum-1));
+        currentQuestion=allQuestions.get(currentQuestionNum-1);
         updateAllTheElements();
         isAnyOptionSelected=false;
         SetAllOptionsVisible();
@@ -266,13 +306,17 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         int correctOptionNumber=getCorrectOptionNumber();
         int randomOptionNum=getRandomOptionNumber(correctOptionNumber);
         if(correctOptionNumber!=1 && randomOptionNum!=1)
-            option1.setVisibility(option1.GONE);
+            HideOptionWithAnimation(option1);
         if(correctOptionNumber!=2 && randomOptionNum!=2)
-            option2.setVisibility(option2.GONE);
+            HideOptionWithAnimation(option2);
         if(correctOptionNumber!=3 && randomOptionNum!=3)
-            option3.setVisibility(option3.GONE);
+            HideOptionWithAnimation(option3);
         if(correctOptionNumber!=4 && randomOptionNum!=4)
-            option4.setVisibility(option4.GONE);
+            HideOptionWithAnimation(option4);
+    }
+    private void HideOptionWithAnimation(View view){
+        ((NeumorphButton)view).setAlpha(1);
+        ((NeumorphButton)view).animate().alpha(0).setDuration(1000).setStartDelay(400).start();
     }
     //TO display again after next question
     void SetAllOptionsVisible(){
@@ -305,22 +349,6 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     /**********************END******************/
 
 
-    /**************** SWAP QUESTION LIFELINE **************//*
-
-    public void swapQuestion(View view){
-        countDownTimer.cancel();
-        currentQuestion=allQuestions.get(shuffledIndices.get(MAX_QUESTIONS));
-        updateAllTheElements();
-        isAnyOptionSelected=false;
-       // clearOptions();
-        StartCountDown();
-    }
-
-    */
-/**********************END******************/
-
-
-
     public void audiencePollLifeLine(View view){
         if(isAudiencePollUsed){
             Toast.makeText(this,"Lifeline already used!",Toast.LENGTH_LONG).show();
@@ -334,9 +362,20 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         transaction.replace(R.id.frameLayout, fragment1);
         fragment1.setArguments(bundle);
         //before display fragment, visible close btn to get back from fragment
-        closeBtn.setVisibility(View.VISIBLE);
+        AudiencePollOnAnimation();
         transaction.commit();
+        closeBtn.setVisibility(View.VISIBLE);
         /*Need to Implement*/
+    }
+    private void AudiencePollOnAnimation(){
+        frameLayout.setTranslationY(3000);
+        frameLayout.setAlpha(0);
+        frameLayout.animate().alpha(1).translationY(0).setDuration(1000).setStartDelay(0).start();
+
+    }
+    private void AudiencePollCloseAnimation(){
+        frameLayout.setAlpha(1);
+        frameLayout.animate().alpha(0).setDuration(1000).setStartDelay(0).start();
     }
     public void GetQuestions(String lang,String category){
         String response;
@@ -375,8 +414,10 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         FragmentManager fragmentManager=getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.frameLayout);
         if(fragment!=null){
+
             fragmentManager.beginTransaction();
             FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+            AudiencePollCloseAnimation();
             fragmentTransaction.remove(fragment);
             fragmentTransaction.commit();
             ((Button)view).setVisibility(View.GONE);

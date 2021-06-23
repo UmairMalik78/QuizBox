@@ -17,16 +17,15 @@ public class Question{
     private String option3;
     private String option4;
     private String answer;
-    private String level;
+    private int level;
 
-    public String getImg_path() {
+    public int getLevel() {
         return level;
     }
 
-    public void setImg_path(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
-
 
     public String getQuestionDescription() {
         return questionDescription;

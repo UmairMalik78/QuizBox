@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schem as.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:id="@+id/quizLayoutScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/quiz_back"
+    tools:context=".QuizActivity">
+    <ProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="150dp"
+        android:layout_height="135dp"
+        android:outlineSpotShadowColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/questionDescription"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_textview"
+        android:backgroundTint="#F2F3E8"
+        android:fontFamily="@font/freesans"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/CircularDeterminateProgressBar"
+        android:layout_width="116dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="32dp"
+        android:indeterminateOnly="false"
+        android:progress="0"
+        android:progressDrawable="@drawable/circle"
+        android:rotation="-90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fabrica"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar" />
+
+    <TextView
+        android:id="@+id/scoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="44dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/questionNumView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/closeBtn"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="192dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:fontFamily="@font/aquire"
+        android:gravity="center"
+        android:onClick="CloseFragment"
+        android:text="Close"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neumorph_backgroundColor="@color/white"
+        app:neumorph_shadowElevation="3dp" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/neumorphButton"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/aquire"
+        android:onClick="audiencePollLifeLine"
+        android:text="AUdience Poll"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neumorph_backgroundColor="#F8E011"
+        app:neumorph_shadowElevation="3dp" />
+
+    <ScrollView
+        android:layout_width="307dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionDescription">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/option1"
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/freesans"
+                android:onClick="CheckAnswer"
+                android:text="Close"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#858B8E"
+                android:textSize="24dp"
+                app:neumorph_backgroundColor="@color/white"
+                app:neumorph_shadowElevation="3dp" />
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/option2"
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/freesans"
+                android:onClick="CheckAnswer"
+                android:text="Close"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#858B8E"
+                android:textSize="24dp"
+                app:neumorph_backgroundColor="@color/white"
+                app:neumorph_shadowElevation="3dp" />
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/option3"
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/freesans"
+                android:onClick="CheckAnswer"
+                android:text="Close"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#858B8E"
+                android:textSize="24dp"
+                app:neumorph_backgroundColor="@color/white"
+                app:neumorph_shadowElevation="3dp" />
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/option4"
+                style="@style/Widget.Neumorph.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/freesans"
+                android:onClick="CheckAnswer"
+                android:text="Close"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="#858B8E"
+                android:textSize="24dp"
+                app:neumorph_backgroundColor="@color/white"
+                app:neumorph_shadowElevation="3dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/fifty_fifty_btn"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:background="@color/purple_200"
+        android:fontFamily="@font/aquire"
+        android:onClick="LifeLine50_50"
+        android:text="50 : 50"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:neumorph_backgroundColor="#F8E011"
+        app:neumorph_shadowElevation="3dp" />
+
+    <FrameLayout
+        android:layout_width="423dp"
+        android:layout_height="263dp"
+        app:layout_constraintBottom_toTopOf="@+id/closeBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

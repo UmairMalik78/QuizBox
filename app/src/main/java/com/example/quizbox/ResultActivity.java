@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
-    TextView resultStatusTextView;
-    TextView correctAnsCountTextView;
-
+    TextView scoreTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,28 +21,15 @@ public class ResultActivity extends AppCompatActivity {
         boolean[]answersStatus=intent.getBooleanArrayExtra("answerStatusList");
         int correctAnswersCount=intent.getIntExtra("correctAnsCount",-1);
         //Getting elements of result activity
-
-        resultStatusTextView=findViewById(R.id.txtResultStatus);
-        correctAnsCountTextView=findViewById(R.id.txtCorrectAnsCount);
+        scoreTextView=findViewById(R.id.scoreView);
+        scoreTextView.setText(Integer.toString(correctAnswersCount*10));
         RatingBar ratingBar=findViewById(R.id.ratingBar);
 
         //Displaying information on result activity based on count of correct answers;
-        String excellent="Excellent";
-        String good="Good";
-        String average="Average";
-        String fail="Fail";
         ratingBar.setMax(5);
         ratingBar.setRating(correctAnswersCount/2);
-        if(correctAnswersCount>=8)
-            resultStatusTextView.setText(excellent);
-        else if(correctAnswersCount>=5)
-            resultStatusTextView.setText(good);
-        else if(correctAnswersCount>=3)
-            resultStatusTextView.setText(average);
-        else
-            resultStatusTextView.setText(fail);
-        String correctAnsCount="Correct Answers: "+String.valueOf(correctAnswersCount);
-        correctAnsCountTextView.setText(correctAnsCount);
+
+
     }
 
     public void GoToMainActivity(View view) {

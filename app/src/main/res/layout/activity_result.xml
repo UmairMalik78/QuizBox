@@ -5,60 +5,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_primary_dark">
+    android:background="@drawable/result_back"
+    >
 
-    <TextView
-        android:id="@+id/txtResultStatus"
-        android:layout_width="259dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="96dp"
-        android:background="@drawable/custom_textview"
-        android:fontFamily="@font/blackberry"
-        android:text="Status"
-        android:textColor="#9B5FEB"
-        android:textSize="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
-
-    <TextView
-        android:id="@+id/txtCorrectAnsCount"
-        android:layout_width="wrap_content"
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/neumorphButton"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:fontFamily="@font/kidsboardgame"
-        android:text="count"
-        android:textColor="#098E3E"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="@+id/txtResultStatus"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="@+id/txtResultStatus"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultStatus" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:fontFamily="@font/dream"
+        android:layout_marginBottom="140dp"
+        android:background="@color/purple_200"
+        android:fontFamily="@font/aquire"
         android:onClick="GoToMainActivity"
         android:text="Home"
-        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCorrectAnsCount" />
+        app:neumorph_backgroundColor="#F3E82E"
+        app:neumorph_shadowElevation="3dp" />
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:theme="@style/RatingBar"
         android:layout_width="245dp"
         android:layout_height="51dp"
-        android:layout_marginTop="56dp"
+        android:alpha="5"
         android:isIndicator="true"
+        android:rotationX="360"
+        android:rotationY="360"
+        android:theme="@style/RatingBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197" />
+
+    <LinearLayout
+        android:layout_width="285dp"
+        android:layout_height="108dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/trophy" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aero"
+                android:text="Score"
+                android:textAlignment="center"
+                android:textColor="#FFEB3B"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/scoreView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fabrica"
+                android:text="Score"
+                android:textAlignment="center"
+                android:textColor="#3CFF4F"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

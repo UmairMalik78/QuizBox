@@ -22,13 +22,40 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import soup.neumorphism.NeumorphTextView;
+
 public class CategorySelectionActivity extends AppCompatActivity {
     MediaPlayer optionClickMediaPlayer;
     ArrayList<Question>allQuestions;
+    NeumorphTextView islamicCatg,scienCatg,sportCatg,mathCatg,hisCatg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_selection);
+        islamicCatg=findViewById(R.id.IslamicCategory);
+        sportCatg=findViewById(R.id.SportCategory);
+        hisCatg=findViewById(R.id.HistoryCategory);
+        scienCatg=findViewById(R.id.ScienceCategory);
+        mathCatg=findViewById(R.id.MathCategory);
+
+        islamicCatg.setTranslationY(300);
+        sportCatg.setTranslationY(300);
+        hisCatg.setTranslationY(300);
+        scienCatg.setTranslationY(300);
+        mathCatg.setTranslationY(300);
+
+        islamicCatg.setAlpha(0);
+        sportCatg.setAlpha(0);
+        hisCatg.setAlpha(0);
+        scienCatg.setAlpha(0);
+        mathCatg.setAlpha(0);
+
+        islamicCatg.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        sportCatg.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        hisCatg.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        scienCatg.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        mathCatg.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+
     }
     public void MoveToLanguageSelectionActivity(View view){
         playSoundOnButtonClick(view);

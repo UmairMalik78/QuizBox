@@ -33,7 +33,21 @@ public class LanguageSelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_selection);
+
         difficultyLevelPicker=findViewById(R.id.DifficultyLevelPicker);
+        TextView heading=findViewById(R.id.heading);
+
+        difficultyLevelPicker.setTranslationY(300);
+        heading.setTranslationX(300);
+
+        difficultyLevelPicker.setAlpha(0);
+        heading.setAlpha(0);
+
+        difficultyLevelPicker.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        heading.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+
+
+        difficultyLevelPicker.setAlpha(0);
         difficultyLevelPicker.setValue(0);
         difficultyLevelPicker.setMinValue(0);
         difficultyLevelPicker.setMaxValue(1);
