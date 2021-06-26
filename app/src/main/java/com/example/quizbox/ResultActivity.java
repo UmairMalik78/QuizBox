@@ -44,4 +44,13 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent=new Intent(ResultActivity.this,CategorySelectionActivity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent=new Intent(ResultActivity.this,CategorySelectionActivity.class);
+        startActivity(intent);
+    }
+
+
 }

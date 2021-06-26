@@ -68,6 +68,7 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
     CountDownTimer countDownTimer;
     int timer=0,currentLevelNo=1,currentLevelStartingIndex=0;
     FrameLayout frameLayout;
+    boolean isReleased=false;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -207,6 +208,7 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
 
     public void SetNextQuestionOnScreen(){
         PerformAnimations();
+        Log.d("ALC","Timer Sound");
         playTimerSound();
         StartCountDown();
         CloseFragment(closeBtn);
@@ -424,40 +426,43 @@ public class QuizActivity extends AppCompatActivity implements OnResponse {
         }
     }
     private void playTimerSound(){
-        if(timerMediaPlayer!=null && timerMediaPlayer.isPlaying()){
-            timerMediaPlayer.reset();
-            timerMediaPlayer.release();
-            timerMediaPlayer=null;
+        if(timerMediaPlayer!=null && !isReleased)
+        {
+            if(timerMediaPlayer.isPlaying()){
+                timerMediaPlayer.release();
+                isReleased=true;
+                timerMediaPlayer=null;
+            }
         }
         timerMediaPlayer=MediaPlayer.create(QuizActivity.this,R.raw.tick_tock_bell);
         timerMediaPlayer.start();
         timerMediaPlayer.setLooping(false);
+        isReleased=false;
         timerMediaPlayer.setOnCompletionListener(new  MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 timerMediaPlayer.reset();
                 timerMediaPlayer.release();
+                isReleased=true;
+                timerMediaPlayer=null;
             }
         });
     }
-    //for playing sound each time option is clicked
-    public void playSoundOnButtonClick(View view) {
-        optionClickMediaPlayer=MediaPlayer.create(QuizActivity.this,R.raw.click);
-        optionClickMediaPlayer.start();
-        optionClickMediaPlayer.setLooping(false);
-        optionClickMediaPlayer.setOnCompletionListener(new  MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                optionClickMediaPlayer.reset();
-                optionClickMediaPlayer.release();
-            }
-        });
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        timerMediaPlayer.reset();
-        timerMediaPlayer.release();
+        finish();
+        stopTimerSound();
+        countDownTimer.cancel();
+    }
+    private void stopTimerSound(){
+        if(timerMediaPlayer!=null && !isReleased)
+        {
+            if(timerMediaPlayer.isPlaying()){
+                timerMediaPlayer.release();
+                isReleased=true;
+                timerMediaPlayer=null;
+            }
+        }
     }
 }
